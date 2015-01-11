@@ -401,6 +401,8 @@ Lossy compression.
 Find the eigenvectors of the covariance matrix $\bf{X^T X}$ of the data. These form an orthonormal basis $\{ \bf{w}_1, ..., \bf{w}_N\}$ for the data in the directions that have highest variance.
 One can then use the first $L < D$ vectors to rebuild the data: $\bf{\hat{x}}_i = \bf{W} \bf{z}_i = \bf{W} \bf{W}^T \bf{x}_i$, with $\bf{W} = \begin{bmatrix} \bf{w}_1 ; ... ; \bf{w}_L \end{bmatrix}$.
 This minimizes mean square error $\frac{1}{N} \sum_{i=1}^N \bf{x}_i - \bf{\hat{x}}_i^2$.
+$$\bf{Z}^T \leftarrow (\bf{W}^T\bf{W}^{-1}\bf{W}^T\bf{X}$$
+$$\bf{W}^T \leftarrow (\bf{Z}^T\bf{Z}^{-1}\bf{Z}^T\bf{X}^T$$
 
 \section{SVD \small$\mathcal{O}(4D^2N+8DN^2+9D^3)$}
 \subsection{Singular value decomposition}
