@@ -130,7 +130,7 @@ $$
 \section{Optimization methods}
 
 \subsection{Grid Search \small$\mathcal{O}(M^D N D)$}
-Simply try values for all parameters at regular intervals.
+Simply try $M$ values for all parameters at regular intervals.
 %Complexity: $\mathcal{O}(M^D N D)$, where $M$ is the number of values tried in each dimension.
 
 \subsection{Gradient Descent \small$\mathcal{O}(I N D)$}
@@ -274,7 +274,9 @@ Bayes rule: $p(A, B) = p(A|B) p(B) = p(B|A) p(A)$
 
 The \textbf{prior} $p(\bf{f}|\bf{X})$ encodes our prior belief about the ``true'' model $\bf{f}$. The \textbf{likelihood} $p(\bf{y}|\bf{f})$ measures the probability of our (possibly noisy) observations given the prior.
 
-Least-squares tries to find model parameters $\bbeta$ which maximize the likelihood. Ridge regression maximizes the \textbf{posterior} $p(\bbeta|\bf{y})$
+Least-squares tries to find model parameters $\bbeta$ which maximize the likelihood. Ridge regression maximizes the \textbf{posterior} $p(\bbeta|\bf{y})$.
+
+Bayesian method are biased.
 
 \subsection{Bayesian networks}
 We can use a Directed Acyclic Graph (DAG) to define a joint distribution of events. For example, we can express the relationship between \textit{latent factors} (possible ``causes'') $z_i$ and \textit{observations} (results) $y_i$:
@@ -323,7 +325,7 @@ Properties of a Kernel:
 \item $\bf{K}$ \psd%: $\forall$ nonzero vector $\bf{a}, \bf{a}^T \bf{K} \bf{a} \geq 0$.
 \end{itemize}
 
-\subsection{Gaussian Process}
+\subsection{Gaussian Process \small$\mathcal{O}(N^3)$}
 The predicting function $f$ is interpreted as a random variable with jointly gaussian prior: $\mathcal{N}(f | \bf{0}, \bf{K})$.
 Defining the Kernel matrix $\bf{K} = \kappa(\bf{X}, \bf{X})$ defines the prior. The key idea is, that if $\bf{x}_i$ and $\bf{x_j}$ are
 deemed by the kernel to be similar, then we expect the output of $f$ at those points to be similar, too.
@@ -348,6 +350,7 @@ $
 $
 
 This can be conditioned on $\bf{y}$ to find the PDF of $\bf{\hat{y}}$. Advantage: we output our prediction as probabilities (which represent uncertainty).
+Decrease variance by averaging.
 
 % ----------
 \section{Neural Networks}
