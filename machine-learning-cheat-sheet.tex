@@ -397,6 +397,12 @@ $\bdelta^{(k-1)} = \frac{\partial \mathcal{L}}{\partial \bf{a}^{(k-1)}} = diag[ 
 $\frac{\partial \mathcal{L}}{\partial \bf{B}^{(1)}} = \bdelta^{(1)} \bf{x}^T$\\
 $\frac{\partial \mathcal{L}}{\partial \bf{B}^{(k)}} = \bdelta^{(k)} \bf{z}^{(k)T}$
 
+\subsubsection{Chain Rule}
+$\frac{\partial\mathcal{L}}{\partial\bbeta_m^{(1)}} = \frac{\partial a_m^{(1)}}{\partial\bbeta_m} \frac{\partial\mathcal{L}}{\partial a_m^{(1)}} = \bf{x} \frac{\partial\mathcal{L}}{\partial a_m^{(1)}}$
+$a_m^{(1)} = \bbeta_m^{{(1)}^T} \bf{x} \qquad z_m^{(1)} = h(a_m^{(1)})$
+$\frac{\partial\mathcal{L}}{\partial a_m^{(1)}} = \frac{\partial z_m^{(1)}}{\partial a_m^{(1)}} \frac{\partial\mathcal{L}}{\partial z_m^{(1)}} = h'(a_m^{(1)}) \frac{\partial\mathcal{L}}{\partial z_m^{(1)}}$
+$\frac{\partial\mathcal{L}}{\partial z_m^{(1)}} = \frac{\partial a^{(2)}}{\partial z_m^{(1)}} \frac{\partial\mathcal{L}}{\partial a^{(2)}} \qquad a^{(2)} = \beta_1^{{(2)}^T}\bf{z}^{(1)}$
+
 \subsection{Regularization}
 NN are not \textit{identifiable} (existence of many local optima), therefore the maximum likelihood estimator is not \textit{consistent}.
 
