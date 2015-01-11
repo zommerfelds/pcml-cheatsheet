@@ -71,13 +71,17 @@ The final goal is to predict a $\hat{y} = f(\bf{\hat{x}})$ given any $\bf{\hat{x
 
 \subsection{Vector and matrix derivatives}
 \subsubsection{First Order}
-$$\frac{\partial\bf{x}^T\bf{a}}{\partial\bf{x}} = \frac{\partial\bf{a}^T\bf{x}}{\partial\bf{x}} = \bf{a}$$
-$$\frac{\partial\bf{a}^T\bf{X}\bf{b}}{\partial\bf{X}} = \bf{ab}^T$$
-$$\frac{\partial\bf{a}^T\bf{X}^T\bf{b}}{\partial\bf{X}} = \bf{ba}^T$$
-$$\frac{\partial\bf{a}^T\bf{Xa}}{\partial\bf{X}} = \frac{\partial\bf{a}^T\bf{X}^T\bf{a}}{\partial\bf{X}} = \bf{aa}^T$$
+$\frac{\partial\bf{x}^T\bf{a}}{\partial\bf{x}} = \frac{\partial\bf{a}^T\bf{x}}{\partial\bf{x}} = \bf{a}$
+$\quad\quad$
+$\frac{\partial\bf{a}^T\bf{X}\bf{b}}{\partial\bf{X}} = \bf{ab}^T$
+
+$\frac{\partial\bf{a}^T\bf{X}^T\bf{b}}{\partial\bf{X}} = \bf{ba}^T$
+$\quad$
+$\frac{\partial\bf{a}^T\bf{Xa}}{\partial\bf{X}} = \frac{\partial\bf{a}^T\bf{X}^T\bf{a}}{\partial\bf{X}} = \bf{aa}^T$
 \subsubsection{Second Order}
-$$\frac{\partial\bf{b}^T\bf{X}^T\bf{Xc}}{\partial\bf{X}} = \bf{X}(\bf{bc}^T+\bf{cb}^T)$$
-$$\frac{\partial\bf{x}^T\bf{Bx}}{\partial\bf{x}} = (\bf{B}+\bf{B}^T)\bf{x}$$
+$\frac{\partial\bf{b}^T\bf{X}^T\bf{Xc}}{\partial\bf{X}} = \bf{X}(\bf{bc}^T+\bf{cb}^T)$
+
+$\frac{\partial\bf{x}^T\bf{Bx}}{\partial\bf{x}} = (\bf{B}+\bf{B}^T)\bf{x}$
 
 \subsection{Distributions}
 Multivariate gaussian distribution: $\mathcal{N}(\bf{X} | \bf{\mu} , \bf{\Sigma})$ \\
@@ -517,7 +521,7 @@ An estimator is called efficient if it achives the Cramer-Rao lower bound:
 $\Var{(\bbeta)} \geq 1/I(\bbeta)$, where I is the Fisher information.
 
 \subsection{Reducing Overfitting}
-\begin{itemize}
+\begin{itemize}[itemsep=0pt]
 \item penalize terms
 \item reduce dimensionality
 \item more data
