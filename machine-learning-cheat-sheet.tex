@@ -112,8 +112,8 @@ $\implies \log ( \sum_x x \cdot p(x) ) \geq \sum_x p(x) \log(x)$
 
 \textbf{Solution optimality}~:
 \begin{description}
-\item[first-order \textit{necessary}] $\frac{\partial\mathcal{L}(\bf{\bbeta}^*)}{\partial\bbeta} = 0$
-\item[second-order \textit{sufficient}] $\bf{H}(\bf{\bbeta}^*) := \frac{\partial^2\mathcal{L}(\bbeta^*)}{\partial\bbeta\partial\bbeta^T}$ is \psd
+\item[$1^{st}$-order \textit{necessary}] $\frac{\partial\mathcal{L}(\bf{\bbeta}^*)}{\partial\bbeta} = 0$
+\item[$2^{nd}$-order \textit{sufficient}] $\bf{H}(\bf{\bbeta}^*) := \frac{\partial^2\mathcal{L}(\bbeta^*)}{\partial\bbeta\partial\bbeta^T}$ is \psd
 \end{description}
 
 
@@ -500,8 +500,8 @@ where $\bbeta \in \mathbb{R}^D$ and $\balpha \in \mathbb{R}^N$
 and (like magic) $\bf{K}$ shows up, the Kernel Matrix.
 
 Representer Theorem: For any $\bbeta$ minimizing
-$$\min_\beta \sum_{n=1}^N \mathcal{L}(y_n, \bf{x}_n^T \bbeta) + \sum_{d=1}^D \lambda \beta_d^2$$
-there exists an $\balpha$ such that $\bbeta = \bf{X}^T \balpha$.
+$\min_\beta \sum_{n=1}^N \mathcal{L}(y_n, \bf{x}_n^T \bbeta) + \sum_{d=1}^D \lambda \beta_d^2$,
+$\exists \balpha$ such that $\bbeta = \bf{X}^T \balpha$.
 
 When we have an explicit vector formulation of $\bbeta$, we can use the matrix inversion lemma to get to the dual. E.g. for ridge regression:
 $$\bbeta = (\bf{X}^T \bf{X}  + \lambda \bf{I}_D)^{-1} \bf{X}^T \bf{y}= \bf{X}^T \underbrace{(\bf{X X}^T + \lambda \bf{I}_N)^{-1} \bf{y}}_{\balpha}$$
