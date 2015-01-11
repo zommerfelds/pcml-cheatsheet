@@ -285,7 +285,7 @@ We can use a Directed Acyclic Graph (DAG) to define a joint distribution of even
 %  \centering
 %  \includegraphics[height=1.5cm]{images/bayesian-network.png}
 %\end{colfig}
-$z_1 \rightarrow y_1 \leftarrow z_2 \rightarrow y_2 \leftarrow z_3$
+$z_1 \searrow y_1 \swarrow z_2 \searrow y_2 \swarrow z_3$
 
 This example can be factorized as follows:
 $p(y_1, y_2, z_1, z_2, z_3) = p(y_1 | z_1, z_2) p(y_2 | z_2, z_3) p(z_1) p(z_2) p(z_3)$
@@ -293,6 +293,11 @@ $p(y_1, y_2, z_1, z_2, z_3) = p(y_1 | z_1, z_2) p(y_2 | z_2, z_3) p(z_1) p(z_2) 
 We can then obtain the distribution over latent factors ($z_i$) by marginalizing over the unknown variables:
 $p(z_1, z_2, z_3 | y_1, y_2) = \frac{\text{joint}}{p(y_1, y_2)}$\\
 $\implies p(z_1 | y_1, y_2) = \sum_{z_2, z_3} \frac{\text{joint}}{p(y_1, y_2)}$
+
+\subsection{Sum-product}
+\begin{multline}
+\sum_{z_3} \sum_{z_2} p(y_a|z_1,z_2) p(y_b|z_2,z_3) p(z_1) p(z_2) p(z_3) = \\ p(z_1) \sum_{z_2} p(y_a|z_1,z_2) p(z_2) \sum_{z_3} p(y_b|z_2,z_3) p(z_3)
+\end{multline}
 
 \subsection{Belief propagation}
 Belief propagation is a message-passing based algorithm used to compute desired marginals (e.g. $p(z_1 | y_1, y_2)$) efficiently. It leverages the factorized expression of the joint. Messages passed:
