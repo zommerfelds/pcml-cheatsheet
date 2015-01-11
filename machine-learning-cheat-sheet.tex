@@ -24,6 +24,7 @@
 \newcommand{\btheta}{\boldsymbol\theta}
 \newcommand{\bPhi}{\boldsymbol\Phi}
 \newcommand{\psd}{p.s.d.}
+\newcommand{\st}{s.t.}
 
 \pdfinfo{
   /Title (Machine Learning Cheat Sheet)
@@ -241,7 +242,7 @@ The GLM consists of three elements:
 \begin{itemize}
   \item A probability distribution from the exponential family.
   \item A linear predictor $\hat y = \bf{X} \bbeta$ .
-  \item A link function g such that $E(y) = \mu = g^{-1}(\eta)$.
+  \item A link function $g$ \st\ $E(y) = \mu = g^{-1}(\eta)$.
 \end{itemize}
 
 In a generalized linear model (GLM), each outcome of the dependent variables $y$ is assumed to be generated from a particular distribution in the exponential family, a large range of probability distributions that includes the normal, binomial, Poisson and gamma distributions, among others.
@@ -260,7 +261,7 @@ The Likelihood Function maps the model parameters to the probability distributio
 $\mathcal{L}_{lik}\colon \text{parameter space} \to [0;1]\quad  \bbeta \mapsto p(\bf{y} \mid  \bbeta)$
 An underlying $p$ is assumed before. If the observed $y$ are IID, $p(\bf{y} \mid \bbeta) = \prod_n p(y_n \mid \bbeta)$.
 
-$\mathcal{L}_{lik}$ can be viewed as just another cost function. Maximum likelihood then simply chooses the parameters $\bbeta$ such that observed data is most likely. $\bbeta = \argmax_{\text{all} \bbeta} L(\bbeta)$
+$\mathcal{L}_{lik}$ can be viewed as just another cost function. Maximum likelihood then simply chooses the parameters $\bbeta$ \st\ observed data is most likely. $\bbeta = \argmax_{\text{all} \bbeta} L(\bbeta)$
 
 Assuming different $p$ is basically what makes this so flexible. We can chose e.g.:
 
@@ -403,7 +404,7 @@ NN are universal density estimators, and thus prone to severe overfitting. Techn
 
 % ----------
 \section{Support Vector Machines}
-Search for the hyperplane separating the data such that the gap (margin) is biggest.
+Search for the hyperplane separating the data \st\ the gap (margin) is biggest.
 It minimizes the following cost function (``hinge loss''):
 
 $\mathcal{L}_{SVM} (\bbeta)= \sum_{n=1}^N [1 - y_n \tilde\phi_n \bbeta]_{+} + \frac{\lambda}{2} \sum_{j=1}^M \beta_j^2$
@@ -495,13 +496,13 @@ Bottom line: reduce feature dimensionality whenever possible.
 
 \subsection{Primal vs. Dual}
 Instead of working in the \textbf{column space} of our data, we can work in the \textbf{row space}:
-$$\bf{\hat{y} = X \bbeta = X X^T \balpha = K \balpha}$$
+$\hat{\bf{y}} = \bf{X} \bbeta = \bf{X X}^T \balpha = \bf{K} \balpha$,\\
 where $\bbeta \in \mathbb{R}^D$ and $\balpha \in \mathbb{R}^N$
 and (like magic) $\bf{K}$ shows up, the Kernel Matrix.
 
 Representer Theorem: For any $\bbeta$ minimizing
-$\min_\beta \sum_{n=1}^N \mathcal{L}(y_n, \bf{x}_n^T \bbeta) + \sum_{d=1}^D \lambda \beta_d^2$,
-$\exists \balpha$ such that $\bbeta = \bf{X}^T \balpha$.
+$\min_\beta \sum_{n=1}^N \mathcal{L}(y_n, \bf{x}_n^T \bbeta) + \sum_{d=1}^D \lambda \beta_d^2$,\\
+$\exists \balpha$ \st\ $\bbeta = \bf{X}^T \balpha$.
 
 When we have an explicit vector formulation of $\bbeta$, we can use the matrix inversion lemma to get to the dual. E.g. for ridge regression:
 $$\bbeta = (\bf{X}^T \bf{X}  + \lambda \bf{I}_D)^{-1} \bf{X}^T \bf{y}= \bf{X}^T \underbrace{(\bf{X X}^T + \lambda \bf{I}_N)^{-1} \bf{y}}_{\balpha}$$
