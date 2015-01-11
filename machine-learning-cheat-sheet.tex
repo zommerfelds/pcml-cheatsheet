@@ -255,10 +255,11 @@ Least-squares tries to find model parameters $\bbeta$ which maximize the likelih
 \subsection{Bayesian networks}
 We can use a Directed Acyclic Graph (DAG) to define a joint distribution of events. For example, we can express the relationship between \textit{latent factors} (possible ``causes'') $z_i$ and \textit{observations} (results) $y_i$:
 
-\begin{colfig}
-  \centering
-  \includegraphics[height=1.5cm]{images/bayesian-network.png}
-\end{colfig}
+%\begin{colfig}
+%  \centering
+%  \includegraphics[height=1.5cm]{images/bayesian-network.png}
+%\end{colfig}
+$z_1 \rightarrow y_1 \leftarrow z_2 \rightarrow y_2 \leftarrow z_3$
 
 This example can be factorized as follows:
 $p(y_1, y_2, z_1, z_2, z_3) = p(y_1 | z_1, z_2) p(y_2 | z_2, z_3) p(z_1) p(z_2) p(z_3)$
@@ -389,10 +390,10 @@ f is called convex f: $\forall x_1, x_2 \in X, \forall t \in [0, 1]: \qquad f(tx
 Sum of two convex functions is convex. Composition of a convex function with a convex, nondecreasing function is convex. Linear, exponential and $\log(\sum \exp)$ functions are convex.
 
 \subsection{Bias-Variance Decomposition}
-\begin{colfig}
-  \centering
-  \includegraphics[width=\linewidth]{images/bias-variance.png}
-\end{colfig}
+%\begin{colfig}
+%  \centering
+%  \includegraphics[width=\linewidth]{images/bias-variance.png}
+%\end{colfig}
 
 Bias-variance comes directly out of the test error:
  \begin{align*}
