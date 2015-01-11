@@ -213,7 +213,8 @@ $\mathcal{L}_{\epsilon}(y, \hat{y}) = \begin{cases}
 \section{Least squares \small$\mathcal{O}(ND^2 + D^3)$}
 %Complexity: $\mathcal{O}(ND^2 + D^3)$
 The gradient of the MSE set to zero is called the normal equation:
-$$ - \bf{y}^T \bf{X} + \bf{X}^T \bf{X} \bbeta = 0$$
+$ - \bf{y}^T \bf{X} + \bf{X}^T \bf{X} \bbeta = 0$.
+
 We can solve this for $\bbeta$ directly (by matrix manipulation)
 $\bbeta = ( \bf{\tilde{X}}^T \bf{\tilde{X}} )^{-1} \bf{\tilde{X}}^T \bf{y}$
 
@@ -270,41 +271,47 @@ It is a sample approximation of the expected likelihood:
 $\mathcal{L}_{lik}(\bbeta) \approx E_y[ p(y \mid \bbeta) ]$
 
 \subsection{Bayesian methods}
-Bayes rule: $p(A, B) = p(A|B) p(B) = p(B|A) p(A)$
+Bayes rule: $p(A, B) = p(A|B) p(B) = p(B|A) p(A)$\\
+$\underbrace{p(y,z)}_{\text{joint}} = \underbrace{p(y|z)}_{\text{likelihood}} \underbrace{p(z)}_{\text{prior}} = \underbrace{p(z|y)}_{\text{posterior}} \underbrace{p(y)}_{\text{mar. li}}$
 
-The \textbf{prior} $p(\bf{f}|\bf{X})$ encodes our prior belief about the ``true'' model $\bf{f}$. The \textbf{likelihood} $p(\bf{y}|\bf{f})$ measures the probability of our (possibly noisy) observations given the prior.
+%The \textbf{prior} $p(\bf{f}|\bf{X})$ encodes our prior belief about the ``true'' model $\bf{f}$. The \textbf{likelihood} $p(\bf{y}|\bf{f})$ measures the probability of our (possibly noisy) observations given the prior.
 
 Least-squares tries to find model parameters $\bbeta$ which maximize the likelihood. Ridge regression maximizes the \textbf{posterior} $p(\bbeta|\bf{y})$.
 
 Bayesian method are biased.
 
 \subsection{Bayesian networks}
-We can use a Directed Acyclic Graph (DAG) to define a joint distribution of events. For example, we can express the relationship between \textit{latent factors} (possible ``causes'') $z_i$ and \textit{observations} (results) $y_i$:
-
+We can use a Directed Acyclic Graph (DAG) to define a joint distribution of events~: %For example, we can express the relationship between \textit{latent factors} (possible ``causes'') $z_i$ and \textit{observations} (results) $y_i$:
+$p(\bf{x}) = \prod_{k=1}^K p(x_k|\mathbb{P}_k)$
 %\begin{colfig}
 %  \centering
 %  \includegraphics[height=1.5cm]{images/bayesian-network.png}
 %\end{colfig}
-$z_1 \searrow y_1 \swarrow z_2 \searrow y_2 \swarrow z_3$
+%$z_1 \searrow y_1 \swarrow z_2 \searrow y_2 \swarrow z_3$
 
-This example can be factorized as follows:
-$p(y_1, y_2, z_1, z_2, z_3) = p(y_1 | z_1, z_2) p(y_2 | z_2, z_3) p(z_1) p(z_2) p(z_3)$
+%This example can be factorized as follows:
+%$p(y_1, y_2, z_1, z_2, z_3) = p(y_1 | z_1, z_2) p(y_2 | z_2, z_3) p(z_1) p(z_2) p(z_3)$
 
 We can then obtain the distribution over latent factors ($z_i$) by marginalizing over the unknown variables:
 $p(z_1, z_2, z_3 | y_1, y_2) = \frac{\text{joint}}{p(y_1, y_2)}$\\
 $\implies p(z_1 | y_1, y_2) = \sum_{z_2, z_3} \frac{\text{joint}}{p(y_1, y_2)}$
 
 \subsection{Sum-product}
-\begin{multline}
+\begin{multline*}
 \sum_{z_3} \sum_{z_2} p(y_a|z_1,z_2) p(y_b|z_2,z_3) p(z_1) p(z_2) p(z_3) = \\ p(z_1) \sum_{z_2} p(y_a|z_1,z_2) p(z_2) \sum_{z_3} p(y_b|z_2,z_3) p(z_3)
-\end{multline}
+\end{multline*}
 
 \subsection{Belief propagation}
 Belief propagation is a message-passing based algorithm used to compute desired marginals (e.g. $p(z_1 | y_1, y_2)$) efficiently. It leverages the factorized expression of the joint. Messages passed:
-
-$m_{z_i \rightarrow y_j} = p(z_i) \Pi(\text{messages received except from } y_j)$
-
-$m_{y_j \rightarrow z_i} = \sum_{z_k \neq z_i} p(y_j | z_k) \Pi(\text{messages received except from } z_i)$
+\begin{itemize}
+\item[vars to obs]
+%$m_{z_i \rightarrow y_j} = p(z_i) \Pi(\text{messages received except from } y_j)$
+$m_{z_i \rightarrow a}(z_i) = p(z_i) \prod_{b\in \mathbb{N}(i) 	\setminus a} m_{b\rightarrow i}(z_i)$
+\item[obs to vars]
+%$m_{y_j \rightarrow z_i} = \sum_{z_k \neq z_i} p(y_j | z_k) \Pi(\text{messages received except from } z_i)$
+$m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j} p(y_a | \mathbb{P}_a) \prod_{j\in \mathbb{N}(a) \setminus i}m_{j\rightarrow a}(z_j)$
+\end{itemize}
+where $\mathbb{N}$ is the set of all neighbours and $\mathbb{P}$ the set of all parents.
 
 % ----------
 \section{Kernel methods}
