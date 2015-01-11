@@ -59,9 +59,9 @@
 % ----------
 \section{General}
 \subsection{Dataset and Definitions}
-$\mathcal{D}$ is a set of training examples, the n-th Training Example ($n = 1,2, ..., N$), of this set is: $\bf{x}_n = \begin{bmatrix} x_{n1} \quad x_{n2} \quad ... \quad x_{nD} \end{bmatrix}$
+$\mathcal{D}$ is a set of training examples, the n-th Training Example ($n = 1,2, ..., N$), of this set is: $\bf{x}_n = \begin{bmatrix} x_{n1} \quad x_{n2} \quad ... \quad x_{nD} \end{bmatrix}^T$
 
-We write all N training examples in a matrix: $\bf{X} = \begin{bmatrix} \bf{x}_1 ; \quad \bf{x}_2 ; \quad ... ; \quad \bf{x}_N \end{bmatrix}$
+We write all N training examples in a matrix: $\bf{X} = \begin{bmatrix} \bf{x}_1^T ; \quad \bf{x}_2^T ; \quad ... ; \quad \bf{x}_N^T \end{bmatrix}$
 
 In supervised learning, you are also given a set of observations corresponding to the training examples:  $\bf{y} = \begin{bmatrix} y_1 \quad y_2 \quad ... \quad y_{N} \end{bmatrix}^T$
 
@@ -92,7 +92,12 @@ $\implies p(X = k) = \frac{\lambda ^ k}{k!} \exp{(- \lambda)}$
 \subsection{Properties}
 %\textbf{Bayes rule}: $p(A, B) = p(A|B) p(B) = p(B|A) p(A)$ %duplicate
 
-A matrix $\bf{M}$ is \textbf{positive semidefinite} $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} \geq 0$
+A matrix $\bf{M}$ is
+\begin{itemize}
+\item[\textbf{positive semi-definite}] $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} \geq 0$
+\item[\textbf{symmetric}] $\bf{M}^T = \bf{M}$
+\end{itemize}
+
 
 \textbf{Jensen's inequality} applied to $\log$: $\log( \mathbb{E}[X] ) \geq \mathbb{E}[\log(X)]$ \\
 $\implies \log ( \sum_x x \cdot p(x) ) \geq \sum_x p(x) \log(x)$
@@ -314,8 +319,8 @@ The $\phi$ are not that important in the end, because we only use the Kernel as 
 
 Properties of a Kernel:
 \begin{itemize}
-\item $\bf{K}$ should be symmetric: $\bf{K}^T = \bf{K}$
-\item $\bf{K}$ should be positive semi-definite: $\forall$ nonzero vector $\bf{a}, \bf{a}^T \bf{K} \bf{a} \geq 0$.
+\item $\bf{K}$ symmetric%: $\bf{K}^T = \bf{K}$
+\item $\bf{K}$ \psd%: $\forall$ nonzero vector $\bf{a}, \bf{a}^T \bf{K} \bf{a} \geq 0$.
 \end{itemize}
 
 \subsection{Gaussian Process}
