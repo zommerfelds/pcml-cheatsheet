@@ -395,19 +395,27 @@ $p(\bf{x}_i | \theta) = \sum_{k=1}^K \pi_k p_k(\bf{x}_i | \theta) =  \sum_{k=1}^
 To use this for clustering, we first fit this mixture and then compute the posterior $p(z_i = k | \bf{x}_i, \theta)$. This yields \textit{soft} cluster assignments.
 
 % ----------
-\section{PCA}
+\section{PCA \small $\mathcal{O}(M^2DN$\tiny$+M^3N+M^3D$\small$)$}
+Lossy compression.
+
 Find the eigenvectors of the covariance matrix $\bf{X^T X}$ of the data. These form an orthonormal basis $\{ \bf{w}_1, ..., \bf{w}_N\}$ for the data in the directions that have highest variance.
 One can then use the first $L < D$ vectors to rebuild the data: $\bf{\hat{x}}_i = \bf{W} \bf{z}_i = \bf{W} \bf{W}^T \bf{x}_i$, with $\bf{W} = \begin{bmatrix} \bf{w}_1 ; ... ; \bf{w}_L \end{bmatrix}$.
 This minimizes mean square error $\frac{1}{N} \sum_{i=1}^N \bf{x}_i - \bf{\hat{x}}_i^2$.
 
-\section{SVD}
-The same as with PCA, we can do with SVD:
-\begin{colfig}
-  \centering
-  \includegraphics[width=\linewidth]{images/svd.png}
-\end{colfig}
+\section{SVD \small$\mathcal{O}(4D^2N+8DN^2+9D^3)$}
+\subsection{Singular value decomposition}
+Exact factorization.
+$$\bf{X} = \bf{USV}^T$$
+%The same as with PCA, we can do with SVD:
+%\begin{colfig}
+%  \centering
+%  \includegraphics[width=\linewidth]{images/svd.png}
+%\end{colfig}
 
-The singular vals of a $N \times D$ matrix $\bf{X}$ are the square roots of the eigenvalues of the $D \times D$ matrix $\bf{X^T X}$
+The singular values of a $N \times D$ matrix $\bf{X}$ are the square roots of the eigenvalues of the $D \times D$ matrix $\bf{X^T X}$
+
+\subsection{Low rank approximation}
+$$\tilde{\bf{X}} = \bf{WZ}^T, \quad \text{where }\bf{W} = \bf{US}^{\frac{1}{2}},\: \bf{Z}=\bf{VS}^{\frac{1}{2}}$$
 % ----------
 \section{Concepts}
 
