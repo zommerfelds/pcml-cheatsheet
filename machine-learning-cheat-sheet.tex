@@ -23,6 +23,7 @@
 \newcommand{\bdelta}{\boldsymbol\delta}
 \newcommand{\btheta}{\boldsymbol\theta}
 \newcommand{\bPhi}{\boldsymbol\Phi}
+\newcommand{\psd}{p.s.d.}
 
 \pdfinfo{
   /Title (Machine Learning Cheat Sheet)
@@ -68,6 +69,16 @@ We assume a \emph{true} model behind the data, the observations are noisy versio
 
 The final goal is to predict a $\hat{y} = f(\bf{\hat{x}})$ given any $\bf{\hat{x}}$.
 
+\subsection{Vector and matrix derivatives}
+\subsubsection{First Order}
+$$\frac{\partial\bf{x}^T\bf{a}}{\partial\bf{x}} = \frac{\partial\bf{a}^T\bf{x}}{\partial\bf{x}} = \bf{a}$$
+$$\frac{\partial\bf{a}^T\bf{X}\bf{b}}{\partial\bf{X}} = \bf{ab}^T$$
+$$\frac{\partial\bf{a}^T\bf{X}^T\bf{b}}{\partial\bf{X}} = \bf{ba}^T$$
+$$\frac{\partial\bf{a}^T\bf{Xa}}{\partial\bf{X}} = \frac{\partial\bf{a}^T\bf{X}^T\bf{a}}{\partial\bf{X}} = \bf{aa}^T$$
+\subsubsection{Second Order}
+$$\frac{\partial\bf{b}^T\bf{X}^T\bf{Xc}}{\partial\bf{X}} = \bf{X}(\bf{bc}^T+\bf{cb}^T)$$
+$$\frac{\partial\bf{x}^T\bf{Bx}}{\partial\bf{x}} = (\bf{B}+\bf{B}^T)\bf{x}$$
+
 \subsection{Distributions}
 Multivariate gaussian distribution: $\mathcal{N}(\bf{X} | \bf{\mu} , \bf{\Sigma})$ \\
 $\implies p(\bf{X} = \bf{x}) = (2 \pi)^{-d/2} |\bf{\Sigma|}^{-1/2} \exp{[- \frac{1}{2} (\bf{x} - \bf{\mu})^T \bf{\Sigma}^{-1} (\bf{x} - \bf{\mu})]}$
@@ -79,7 +90,7 @@ Poisson distribution: $\mathcal{P}(X| \lambda)$ \\
 $\implies p(X = k) = \frac{\lambda ^ k}{k!} \exp{(- \lambda)}$
 
 \subsection{Properties}
-\textbf{Bayes rule}: $p(A, B) = p(A|B) p(B) = p(B|A) p(A)$
+%\textbf{Bayes rule}: $p(A, B) = p(A|B) p(B) = p(B|A) p(A)$ %duplicate
 
 A matrix $\bf{M}$ is \textbf{positive semidefinite} $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} \geq 0$
 
@@ -88,7 +99,15 @@ $\implies \log ( \sum_x x \cdot p(x) ) \geq \sum_x p(x) \log(x)$
 
 \textbf{Matrix inversion lemma}: $(\bf{PQ} + \bf{I}_N)^{-1} \bf{P} = \bf{P}(\bf{QP} + \bf{I}_M)^{-1}$
 
-Useful derivative: $\frac{\partial \bf{x^T B x}}{\partial \bf{x}} = (\bf{B + B^T}) \bf{x}$
+%Useful derivative: $\frac{\partial \bf{x^T B x}}{\partial \bf{x}} = (\bf{B + B^T}) \bf{x}$
+
+\textbf{Solution optimality}~:
+\begin{itemize}
+\item[first-order \textit{necessary}] $\frac{\partial\mathcal{L}(\bf{\bbeta}^*)}{\partial\bbeta} = 0$
+\item[second-order \textit{sufficient}] $\bf{H}(\bf{\bbeta}^*) := \frac{\partial^2\mathcal{L}(\bbeta^*)}{\partial\bbeta\partial\bbeta^T}$ is \psd
+\end{itemize}
+
+
 
 Marginal and Conditional Gaussians:
 $$
