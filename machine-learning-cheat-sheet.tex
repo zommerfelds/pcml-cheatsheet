@@ -93,10 +93,10 @@ $\implies p(X = k) = \frac{\lambda ^ k}{k!} \exp{(- \lambda)}$
 %\textbf{Bayes rule}: $p(A, B) = p(A|B) p(B) = p(B|A) p(A)$ %duplicate
 
 A matrix $\bf{M}$ is
-\begin{itemize}
+\begin{description}
 \item[\textbf{positive semi-definite}] $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} \geq 0$
 \item[\textbf{symmetric}] $\bf{M}^T = \bf{M}$
-\end{itemize}
+\end{description}
 
 
 \textbf{Jensen's inequality} applied to $\log$: $\log( \mathbb{E}[X] ) \geq \mathbb{E}[\log(X)]$ \\
@@ -107,10 +107,10 @@ $\implies \log ( \sum_x x \cdot p(x) ) \geq \sum_x p(x) \log(x)$
 %Useful derivative: $\frac{\partial \bf{x^T B x}}{\partial \bf{x}} = (\bf{B + B^T}) \bf{x}$
 
 \textbf{Solution optimality}~:
-\begin{itemize}
+\begin{description}
 \item[first-order \textit{necessary}] $\frac{\partial\mathcal{L}(\bf{\bbeta}^*)}{\partial\bbeta} = 0$
 \item[second-order \textit{sufficient}] $\bf{H}(\bf{\bbeta}^*) := \frac{\partial^2\mathcal{L}(\bbeta^*)}{\partial\bbeta\partial\bbeta^T}$ is \psd
-\end{itemize}
+\end{description}
 
 
 
@@ -303,14 +303,14 @@ $\implies p(z_1 | y_1, y_2) = \sum_{z_2, z_3} \frac{\text{joint}}{p(y_1, y_2)}$
 
 \subsection{Belief propagation}
 Belief propagation is a message-passing based algorithm used to compute desired marginals (e.g. $p(z_1 | y_1, y_2)$) efficiently. It leverages the factorized expression of the joint. Messages passed:
-\begin{itemize}
+\begin{description}
 \item[vars to obs]
 %$m_{z_i \rightarrow y_j} = p(z_i) \Pi(\text{messages received except from } y_j)$
 $m_{z_i \rightarrow a}(z_i) = p(z_i) \prod_{b\in \mathbb{N}(i) 	\setminus a} m_{b\rightarrow i}(z_i)$
 \item[obs to vars]
 %$m_{y_j \rightarrow z_i} = \sum_{z_k \neq z_i} p(y_j | z_k) \Pi(\text{messages received except from } z_i)$
 $m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j} p(y_a | \mathbb{P}_a) \prod_{j\in \mathbb{N}(a) \setminus i}m_{j\rightarrow a}(z_j)$
-\end{itemize}
+\end{description}
 where $\mathbb{N}$ is the set of all neighbours and $\mathbb{P}$ the set of all parents.
 
 % ----------
@@ -366,9 +366,21 @@ Decrease variance by averaging.
 
 % ----------
 \section{Neural Networks}
-A feed forward Neural Network is organized in $K$ layers, each layer with $M^{(k)}$ hidden units $z_i^{(k)}$. Activations $a_i^{(k)}$ are computed as the linear combination of the previous layer's terms, with weights $\bbeta^{(k)}$ (one $M^{(k-1)} \times 1$ vector of weights for each of the $M^{(k)}$ activations). Activations are then passed through a (possibly nonlinear) function $h$ to compute the hidden unit $z_i^{(k)}$.
-
 $\bf{x}_n \xrightarrow{\bbeta_i^{(1)}} a_i^{(1)} \xrightarrow{h} z_i^{(1)} \xrightarrow{\bbeta^{(2)}} \dots \bf{z}^{(K)} = \bf{y}_n$
+A feed forward Neural Network is organized in $K$ layers, each layer with $M^{(k)}$ hidden units $z_i^{(k)}$. %Activations $a_i^{(k)}$ are computed as the linear combination of the previous layer's terms, with weights $\bbeta^{(k)}$ (one $M^{(k-1)} \times 1$ vector of weights for each of the $M^{(k)}$ activations). Activations are then passed through a (possibly nonlinear) function $h$ to compute the hidden unit $z_i^{(k)}$.
+
+$\forall M$ hidden units~:
+\begin{description}
+\item[First layer~:] $a_{nm}^{(1)} = (\bbeta_m^{(1)})^T\tilde{\bf{x}}_n, \quad z_{nm}^{(1)} = h(a_{nm}^{(1)})$
+\item[Layer $k$~:] $a_{nm}^{(k)} = (\bbeta_m^{(k)})^T\tilde{\bf{z}}_n, \quad z_{nm}^{(k)} = h(a_{nm}^{(k)})$
+\item[Layer $K$~:] $a_{n1}^{(K)} = (\bbeta_1^{(K)})^T\tilde{\bf{z}}_n, \quad z_{n1}^{(K)} = h(a_{n1}^{(K)})$
+\end{description}
+Output for ...
+\begin{description}
+\item[regression] $\hat{y}_n = z_{n1}^{(K)}$
+\item[classification] $\hat{y}_n = \sigma(z_{n1}^{(K)})$
+\end{description}
+
 
 \subsection{Backpropagation}
 It's an algorithm which computes the gradient of the cost $\mathcal{L}$ w.r.t. the parameters $\bbeta^{(k)}$.
@@ -413,13 +425,17 @@ Lossy compression.
 Find the eigenvectors of the covariance matrix $\bf{X^T X}$ of the data. These form an orthonormal basis $\{ \bf{w}_1, ..., \bf{w}_N\}$ for the data in the directions that have highest variance.
 One can then use the first $L < D$ vectors to rebuild the data: $\bf{\hat{x}}_i = \bf{W} \bf{z}_i = \bf{W} \bf{W}^T \bf{x}_i$, with $\bf{W} = \begin{bmatrix} \bf{w}_1 ; ... ; \bf{w}_L \end{bmatrix}$.
 This minimizes mean square error $\frac{1}{N} \sum_{i=1}^N \bf{x}_i - \bf{\hat{x}}_i^2$.
-$$\bf{Z}^T \leftarrow (\bf{W}^T\bf{W}^{-1}\bf{W}^T\bf{X}$$
-$$\bf{W}^T \leftarrow (\bf{Z}^T\bf{Z}^{-1}\bf{Z}^T\bf{X}^T$$
+
+
+$\bf{Z}^T \leftarrow (\bf{W}^T\bf{W}^{-1}\bf{W}^T\bf{X}$
+
+
+$\bf{W}^T \leftarrow (\bf{Z}^T\bf{Z}^{-1}\bf{Z}^T\bf{X}^T$
 
 \section{SVD \small$\mathcal{O}(4D^2N+8DN^2+9D^3)$}
 \subsection{Singular value decomposition}
 Exact factorization.
-$$\bf{X} = \bf{USV}^T$$
+$\bf{X} = \bf{USV}^T$
 %The same as with PCA, we can do with SVD:
 %\begin{colfig}
 %  \centering
@@ -429,7 +445,7 @@ $$\bf{X} = \bf{USV}^T$$
 The singular values of a $N \times D$ matrix $\bf{X}$ are the square roots of the eigenvalues of the $D \times D$ matrix $\bf{X^T X}$
 
 \subsection{Low rank approximation}
-$$\tilde{\bf{X}} = \bf{WZ}^T, \quad \text{where }\bf{W} = \bf{US}^{\frac{1}{2}},\: \bf{Z}=\bf{VS}^{\frac{1}{2}}$$
+$\tilde{\bf{X}} = \bf{WZ}^T, \quad \text{where }\bf{W} = \bf{US}^{\frac{1}{2}},\: \bf{Z}=\bf{VS}^{\frac{1}{2}}$
 % ----------
 \section{Concepts}
 
