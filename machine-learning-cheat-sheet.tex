@@ -440,10 +440,8 @@ $P_{\theta_1}=P_{\theta_2} \quad\Rightarrow\quad \theta_1=\theta_2 \quad\ \text{
 A non-identifiable model will typically have many local optima yielding the same cost, e.g. $\mathcal{L}(W, Z) = \mathcal{L}(aW, \frac{1}{a} Z)$
 
 \subsection{Curse of dimensionality}
-With the dimensionality increase, every data point becomes arbitrarily far
-from every other data point and therefore the choice of nearest neighbor becomes random.
-In high dimension, data only covers a tiny fraction of the input space, making generalization extremely difficult.
-Or in other words, the volume of the space increases so fast that the available data become sparse.
+With dimensionality increase, data point become arbitrarily far from each other. %With the dimensionality increase, every data point becomes arbitrarily far from every other data point and therefore the choice of nearest neighbor becomes random. In high dimension, data only covers a tiny fraction of the input space, making generalization extremely difficult. Or in other words, the volume of the space increases so fast that the available data become sparse.
+Bottom line: reduce feature dimensionality whenever possible.
 
 \subsection{Primal vs. Dual}
 Instead of working in the \textbf{column space} of our data, we can work in the \textbf{row space}:
@@ -473,7 +471,7 @@ An estimator is called efficient if it achives the Cramer-Rao lower bound:
 $\Var{(\bbeta)} \geq 1/I(\bbeta)$, where I is the Fisher information.
 
 \subsection{Occam's Razor}
-It states that among competing hypotheses, the one with the fewest assumptions should be selected. Other, more complicated solutions may ultimately prove correct, but in the absence of certainty, the fewer assumptions that are made, the better.
+It states that among competing hypotheses, the one with the fewest assumptions should be selected. %Other, more complicated solutions may ultimately prove correct, but in the absence of certainty, the fewer assumptions that are made, the better.
 
 \todo[inline]{TODO: K-fold cross-validation, definition of Test-Error, Train-Error}
 
