@@ -129,21 +129,21 @@ $$
 % ----------
 \section{Optimization methods}
 
-\subsection{Grid Search}
+\subsection{Grid Search \small$\mathcal{O}(M^D N D)$}
 Simply try values for all parameters at regular intervals.
-Complexity: $\mathcal{O}(M^D N D)$, where $M$ is the number of values tried in each dimension.
+%Complexity: $\mathcal{O}(M^D N D)$, where $M$ is the number of values tried in each dimension.
 
-\subsection{Gradient Descent}
+\subsection{Gradient Descent \small$\mathcal{O}(I N D)$}
 Update rule: $\bbeta^{(k+1)} = \bbeta^{(k)} - \alpha \frac{\partial \mathcal{L}(\bbeta^{(k)})}{\partial \bbeta}$
 
-Complexity: $\mathcal{O}(I N D)$ where $I$ is the number of iterations we take.
+%Complexity: $\mathcal{O}(I N D)$ where $I$ is the number of iterations we take.
 
 $\alpha$ is a parameter that needs to be chosen carefully.
 
 The gradient for MSE comes out as:
 $\frac{\partial \mathcal{L}}{\partial \bbeta} = - \frac{1}{N} \tilde{X}^T ( \boldsymbol y - \tilde{X} \bbeta )$
 
-\subsection{Newton's method}
+\subsection{Newton's method \small$\mathcal{O}(I N D^2 + I D^3)$}
 It uses second order derivatives information to converge faster (we approximate the objective function by a quadratic function rather than a line).
 
 General rule: $\bbeta^{(k+1)} = \bbeta^{(k)} - \alpha \bf{H_k^{-1}} \frac{\partial \mathcal{L}(\bbeta^{(k)})}{\partial \bbeta}$\\
@@ -151,7 +151,7 @@ where $\bf{H_k}$ is the $D \times D$ Hessian at step $k$: $\bf{H_k} = \frac{\par
 
 Newton's method is equivalent to solving many least-squares problems.
 
-Complexity: $\mathcal{O}(I N D^2 + I D^3)$, with the $D^3$ cost coming from the inversion of $\bf{H_k}$.
+%Complexity: $\mathcal{O}(I N D^2 + I D^3)$, with the $D^3$ cost coming from the inversion of $\bf{H_k}$.
 
 \subsection{Expectation-Maximization}
 EM is a family of methods to find a MLE/MAP estimator if some of the data is missing (e.g. latent variables):
@@ -210,8 +210,8 @@ $\mathcal{L}_{\epsilon}(y, \hat{y}) = \begin{cases}
 \end{cases}$
 
 % ----------
-\section{Least squares}
-Complexity: $\mathcal{O}(ND^2 + D^3)$
+\section{Least squares \small$\mathcal{O}(ND^2 + D^3)$}
+%Complexity: $\mathcal{O}(ND^2 + D^3)$
 The gradient of the MSE set to zero is called the normal equation:
 $$ - \bf{y}^T \bf{X} + \bf{X}^T \bf{X} \bbeta = 0$$
 We can solve this for $\bbeta$ directly (by matrix manipulation)
@@ -474,6 +474,13 @@ An estimator is said to be consistent, if it eventually recovers the true parame
 \subsection{Efficiency}
 An estimator is called efficient if it achives the Cramer-Rao lower bound:
 $\Var{(\bbeta)} \geq 1/I(\bbeta)$, where I is the Fisher information.
+
+\subsection{Reducing Overfitting}
+\begin{itemize}
+\item penalize terms
+\item reduce dimensionality
+\item more data
+\end{itemize}
 
 \subsection{Occam's Razor}
 It states that among competing hypotheses, the one with the fewest assumptions should be selected. %Other, more complicated solutions may ultimately prove correct, but in the absence of certainty, the fewer assumptions that are made, the better.
