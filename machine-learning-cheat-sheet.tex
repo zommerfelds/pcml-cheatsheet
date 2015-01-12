@@ -20,7 +20,7 @@
 \newcommand{\academicYear}{2014-2015}
 \newcommand{\academicSemester}{Autumn}
 \newcommand{\lastUpdate}{\today}
-\newcommand{\version}{1.0}
+\newcommand{\version}{1.1}
 
 % Shorthands
 \renewcommand{\bf}[1]{\ensuremath{\mathbf{#1}}}
@@ -36,6 +36,8 @@
 \newcommand{\bSigma}{\boldsymbol\Sigma}
 \newcommand{\bx}{\bf{x}}
 \newcommand{\bX}{\bf{X}}
+\newcommand{\bXt}{\bf{X}^T}
+\newcommand{\pd}{p.d.}
 \newcommand{\psd}{p.s.d.}
 \newcommand{\st}{s.t.}
 \providecommand{\gauss}[3]{\ensuremath{\mathcal{N}(#1|#2,#3)}}
@@ -87,6 +89,11 @@ We assume a \emph{true} model behind the data, the observations are noisy versio
 
 The final goal is to predict a $\hat{y} = f(\bf{\hat{x}})$ given any $\bf{\hat{x}}$.
 
+\begin{description}
+\item[$\mathbb{N}$] the set of all neighbours
+\item[$\mathbb{P}$] the set of all parents
+\end{description}
+
 \subsection{Vector and matrix derivatives}
 \subsubsection{First Order}
 $\frac{\partial\bf{x}^T\bf{a}}{\partial\bf{x}} = \frac{\partial\bf{a}^T\bf{x}}{\partial\bf{x}} = \bf{a}$
@@ -119,8 +126,9 @@ A matrix $\bf{M}$ is
 \item[\textbf{positive (semi-)definite}] $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} >(=) \; 0$
 \item[\textbf{symmetric}] $\bf{M}^T = \bf{M}$
 \item[singular] if not invertible
+\item[\stabilo{invertible}] $\iff$ full rank $\iff$ \pd\ $\iff$ diag \& diag$\neq0$ $\iff$ $\bf{M}^T$ invertible
 \end{description}
-
+$(\bf{MN})^T = \bf{N}^T\bf{M}^T$
 
 \textbf{Jensen's inequality} applied to $\log$: $\log( \mathbb{E}[X] ) \geq \mathbb{E}[\log(X)]$ \\
 $\implies \log ( \sum_x x \cdot p(x) ) \geq \sum_x p(x) \log(x)$
@@ -129,7 +137,7 @@ $\implies \log ( \sum_x x \cdot p(x) ) \geq \sum_x p(x) \log(x)$
 
 %Useful derivative: $\frac{\partial \bf{x^T B x}}{\partial \bf{x}} = (\bf{B + B^T}) \bf{x}$
 
-\textbf{Solution optimality}~:
+\textbf{Solution optimality of $\bbeta^*$}~:
 \begin{description}
 \item[$1^{st}$-order \textit{necessary}] $\frac{\partial\mathcal{L}(\bf{\bbeta}^*)}{\partial\bbeta} = 0$
 \item[$2^{nd}$-order \textit{sufficient}] $\bf{H}(\bf{\bbeta}^*) := \frac{\partial^2\mathcal{L}(\bbeta^*)}{\partial\bbeta\partial\bbeta^T}$ is \psd
@@ -241,7 +249,7 @@ $\mathcal{L}_{\epsilon}(y, \hat{y}) = \begin{cases}
 Consistent, asymptotically normal.
 
 The gradient of the MSE set to zero is called the  \stabilo{normal equation}~:
-$ - \bf{y}^T \bf{X} + \bf{X}^T \bf{X} \bbeta = 0$.
+$ - \bXt\bf{y} + \bf{X}^T \bf{X} \bbeta = 0$.
 
 We can solve this for $\bbeta$ directly (by matrix manipulation)
 $\bbeta = ( \bf{\tilde{X}}^T \bf{\tilde{X}} )^{-1} \bf{\tilde{X}}^T \bf{y}$
@@ -332,14 +340,13 @@ $\implies p(z_1 | y_1, y_2) = \sum_{z_2, z_3} \frac{\text{joint}}{p(y_1, y_2)}$
 \subsection{Belief propagation}
 Belief propagation is a message-passing based algorithm used to compute desired marginals (e.g. $p(z_1 | y_1, y_2)$) efficiently. It leverages the factorized expression of the joint. Messages passed:
 \begin{description}
-\item[vars to obs]
+\item[\stabilo{variables to observations}]
 %$m_{z_i \rightarrow y_j} = p(z_i) \Pi(\text{messages received except from } y_j)$
 $m_{z_i \rightarrow a}(z_i) = p(z_i) \prod_{b\in \mathbb{N}(i) 	\setminus a} m_{b\rightarrow i}(z_i)$
-\item[obs to vars]
+\item[\stabilo{observations to variables}]
 %$m_{y_j \rightarrow z_i} = \sum_{z_k \neq z_i} p(y_j | z_k) \Pi(\text{messages received except from } z_i)$
 $m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j} p(y_a | \mathbb{P}_a) \prod_{j\in \mathbb{N}(a) \setminus i}m_{j\rightarrow a}(z_j)$
 \end{description}
-where $\mathbb{N}$ is the set of all neighbours and $\mathbb{P}$ the set of all parents.
 
 % ----------
 \section{Kernel methods}
@@ -480,6 +487,7 @@ $\bf{W}^T \leftarrow (\bf{Z}^T\bf{Z})^{-1}\bf{Z}^T\bf{X}^T$
 \subsection{Singular value decomposition}
 Exact factorization.
 $\bf{X} = \bf{USV}^T$
+where $\bf{U}$ is $D\times N$, $\bf{V}$ is $N\times N$ and $\bf{S}$ is $N\times N$.
 %The same as with PCA, we can do with SVD:
 %\begin{colfig}
 %  \centering
@@ -520,6 +528,7 @@ Bias-variance comes directly out of the test error:
   regularization          & +    & - \\
   choose simpler model    & +    & - \\
   more data               & -    & \\
+  increase dimensionality & +	  & + \\
   \hline
 \end{tabular}
 
@@ -575,23 +584,23 @@ $\Var{(\bbeta)} \geq 1/I(\bbeta)$, where I is the Fisher information.
 \subsection{Occam's Razor}
 It states that among competing hypotheses, the one with the fewest assumptions should be selected. %Other, more complicated solutions may ultimately prove correct, but in the absence of certainty, the fewer assumptions that are made, the better.
 
-\todo[inline]{TODO: K-fold cross-validation, definition of Test-Error, Train-Error}
+%\todo[inline]{TODO: K-fold cross-validation, definition of Test-Error, Train-Error}
 
-\todo[inline]{TODO: statistical goodness (robust to outliers, ...) vs. computational goodness (convex, low computational complexity, ...) tradeoff. No free lunch theorem.}
+%\todo[inline]{TODO: statistical goodness (robust to outliers, ...) vs. computational goodness (convex, low computational complexity, ...) tradeoff. No free lunch theorem.}
 
-\todo[inline]{TODO: Decision Trees and Random Forests and Model averaging}
+%\todo[inline]{TODO: Decision Trees and Random Forests and Model averaging}
 
 % ---------- Credits
 \section{Credits}
 Most material was taken from the lecture notes of \href{http://people.epfl.ch/228491}{Prof. Emtiyaz Khan}.\\
-Cost functions figure from Patrick Breheny's slides.\\
-Biais-variance decomposition figure from Hastie, Tibshirani, Friedman, \textit{The Elements of Statistical Learning}.
-The SVD figure from Kevin P. Murphy, \textit{Machine Learning, A Probabilistic Perspective}.
+%Cost functions figure from Patrick Breheny's slides.\\
+%Biais-variance decomposition figure from Hastie, Tibshirani, Friedman, \textit{The Elements of Statistical Learning}.
+%The SVD figure from Kevin P. Murphy, \textit{Machine Learning, A Probabilistic Perspective}.
 
 % ---------- Footer
 \hrule
 \tiny
-Rendered \today. Written by Dennis Meier and Merlin Nimier-David.
+Rendered \today. Written by Dennis Meier, Merlin Nimier-David and Marc Bourqui.
 \copyright Dennis Meier. This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License.
 To view a copy of this license, visit \href{http://creativecommons.org/licenses/by-sa/3.0/}{http://creativecommons.org/licenses/by-sa/3.0/} or
 send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
