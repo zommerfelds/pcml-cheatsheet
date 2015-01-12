@@ -8,12 +8,11 @@
   { \geometry{top=.5in,left=.5in,right=.5in,bottom=.5in} }
   % Else
   { \ifthenelse{\lengthtest{\paperwidth = 297mm}}
-    {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
-    {\geometry{top=1cm,left=1cm,right=1cm,bottom=1cm} }
+    {\geometry{top=1.5cm,left=0.3cm,right=0.3cm,bottom=0.8cm} }
   }
 
 % Turn off header and footer
-\pagestyle{empty}
+%\pagestyle{empty}
 
 % Redefine section commands to use less space
 \makeatletter
@@ -81,3 +80,23 @@
 % Enable arg min/max math operators
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\argmax}{arg\,max}
+
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+
+%
+% Header and Footer
+%
+\fancyhead[L]{}
+\fancyhead[C]{\includegraphics[width=0.6cm]{images/epfl.png}\ \epfl\ - \school\ - \textbf{\courseTitle}\ \by\ \textit{\staff}\ - \academicSemester\ \academicYear}
+%\fancyhead[RO,LE]{\slshape \leftmark}
+\fancyhead[R]{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[L]{\author}% \slshape \rightmark}
+\fancyfoot[C]{\thepage}
+\fancyfoot[R]{Version \version\ \of\ \lastUpdate}
+
+\newcommand{\by}{by}
+\newcommand{\of}{of}
+\newcommand{\epfl}{EPFL}
