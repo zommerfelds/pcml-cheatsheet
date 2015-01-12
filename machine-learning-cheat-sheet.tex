@@ -514,11 +514,15 @@ When we have an explicit vector formulation of $\bbeta$, we can use the matrix i
 $$\bbeta = (\bf{X}^T \bf{X}  + \lambda \bf{I}_D)^{-1} \bf{X}^T \bf{y}= \bf{X}^T \underbrace{(\bf{X X}^T + \lambda \bf{I}_N)^{-1} \bf{y}}_{\balpha}$$
 
 In optimization, we get to the dual like this:
-\begin{colfig}
-  \centering
-  \includegraphics[width=\linewidth]{images/prim-dual.png}
-\end{colfig}
-
+%\begin{colfig}
+%  \centering
+%  \includegraphics[width=\linewidth]{images/prim-dual.png}
+%\end{colfig}
+\begin{align*}
+\min_\beta g(\bbeta) & \quad \xrightarrow{\hspace*{0.2cm}1\hspace*{0.2cm}} & \min_{\bbeta}\max_{\balpha}G(\bbeta, \balpha)\\
+ & & \downarrow 2 \\
+\max_{\balpha}g^*(\balpha) & \quad \xleftarrow{\hspace*{0.2cm}3\hspace*{0.2cm}} & \max_{\balpha}\underbrace{\min_{\bbeta}G(\bbeta, \balpha)}_{g^*(\balpha)}
+\end{align*}
 
 % ----- Less useful concepts
 \subsection{Consistency}
