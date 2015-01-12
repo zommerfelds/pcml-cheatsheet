@@ -277,7 +277,7 @@ $\mathcal{L}_{lik}(\bbeta) \approx E_y[ p(y \mid \bbeta) ]$
 
 \subsection{Bayesian methods}
 Bayes rule: $p(A, B) = p(A|B) p(B) = p(B|A) p(A)$\\
-$\underbrace{p(y,z)}_{\text{joint}} = \underbrace{p(y|z)}_{\text{likelihood}} \underbrace{p(z)}_{\text{prior}} = \underbrace{p(z|y)}_{\text{posterior}} \underbrace{p(y)}_{\text{mar. li}}$
+$\underbrace{p(y,z)}_{\text{joint}} = \underbrace{p(y|z)}_{\text{likelihood}}\: \underbrace{p(z)}_{\text{prior}} = \underbrace{p(z|y)}_{\text{posterior}}\: \underbrace{p(y)}_{\text{mar. li}}$
 
 %The \textbf{prior} $p(\bf{f}|\bf{X})$ encodes our prior belief about the ``true'' model $\bf{f}$. The \textbf{likelihood} $p(\bf{y}|\bf{f})$ measures the probability of our (possibly noisy) observations given the prior.
 
@@ -438,10 +438,10 @@ One can then use the first $L < D$ vectors to rebuild the data: $\bf{\hat{x}}_i 
 This minimizes mean square error $\frac{1}{N} \sum_{i=1}^N \bf{x}_i - \bf{\hat{x}}_i^2$.
 
 
-$\bf{Z}^T \leftarrow (\bf{W}^T\bf{W}^{-1}\bf{W}^T\bf{X}$
+$\bf{Z}^T \leftarrow (\bf{W}^T\bf{W})^{-1}\bf{W}^T\bf{X}$
 
 
-$\bf{W}^T \leftarrow (\bf{Z}^T\bf{Z}^{-1}\bf{Z}^T\bf{X}^T$
+$\bf{W}^T \leftarrow (\bf{Z}^T\bf{Z})^{-1}\bf{Z}^T\bf{X}^T$
 
 \section{SVD \small$\mathcal{O}(4D^2N+8DN^2+9D^3)$}
 \subsection{Singular value decomposition}
@@ -518,6 +518,7 @@ In optimization, we get to the dual like this:
   \centering
   \includegraphics[width=\linewidth]{images/prim-dual.png}
 \end{colfig}
+
 
 % ----- Less useful concepts
 \subsection{Consistency}
