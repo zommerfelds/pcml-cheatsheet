@@ -123,7 +123,7 @@ $\implies p(X = k) = \frac{\lambda ^ k}{k!} \exp{(- \lambda)}$
 
 A matrix $\bf{M}$ is
 \begin{description}
-\item[\textbf{positive (semi-)definite}] $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} >(=) \; 0$
+\item[\stabilo{\textbf{positive (semi-)definite}}] $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} >(=) \; 0$
 \item[\textbf{symmetric}] $\bf{M}^T = \bf{M}$
 \item[singular] if not invertible
 \item[\stabilo{invertible}] $\iff$ full rank $\iff$ \pd\ $\iff$ diag \& diag$\neq0$ $\iff$ $\bf{M}^T$ invertible
@@ -317,7 +317,7 @@ Least-squares tries to find model parameters $\bbeta$ which maximize the likelih
 Bayesian method are biased.
 
 \subsection{Bayesian networks}
-We can use a Directed Acyclic Graph (DAG) to define a joint distribution of events~: %For example, we can express the relationship between \textit{latent factors} (possible ``causes'') $z_i$ and \textit{observations} (results) $y_i$:
+We can use a Directed Acyclic Graph (DAG) to define a \stabilo{joint distribution} of events~: %For example, we can express the relationship between \textit{latent factors} (possible ``causes'') $z_i$ and \textit{observations} (results) $y_i$:
 $p(\bf{x}) = \prod_{k=1}^K p(x_k|\mathbb{P}_k)$
 %\begin{colfig}
 %  \centering
@@ -345,7 +345,7 @@ Belief propagation is a message-passing based algorithm used to compute desired 
 $m_{z_i \rightarrow a}(z_i) = p(z_i) \prod_{b\in \mathbb{N}(i) 	\setminus a} m_{b\rightarrow i}(z_i)$
 \item[\stabilo{observations to variables}]
 %$m_{y_j \rightarrow z_i} = \sum_{z_k \neq z_i} p(y_j | z_k) \Pi(\text{messages received except from } z_i)$
-$m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j} p(y_a | \mathbb{P}_a) \prod_{j\in \mathbb{N}(a) \setminus i}m_{j\rightarrow a}(z_j)$
+$m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j\neq i} p(y_a | \mathbb{P}_a) \prod_{j\in \mathbb{N}(a) \setminus i}m_{j\rightarrow a}(z_j)$
 \end{description}
 
 % ----------
