@@ -104,8 +104,9 @@ $\implies p(X = k) = \frac{\lambda ^ k}{k!} \exp{(- \lambda)}$
 
 A matrix $\bf{M}$ is
 \begin{description}
-\item[\textbf{positive semi-definite}] $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} \geq 0$
+\item[\textbf{positive (semi-)definite}] $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} >(=) \; 0$
 \item[\textbf{symmetric}] $\bf{M}^T = \bf{M}$
+\item[singular] if not invertible
 \end{description}
 
 
@@ -201,15 +202,18 @@ Ridge regression: $\bbeta_{ridge} = ( \tilde{\boldsymbol\Phi}^T \tilde{\boldsymb
 Cost function / Loss: $\mathcal{L}(\bbeta) = \mathcal{L}(\mathcal{D},\bbeta)$
 
 Mean square error (MSE): $\frac{1}{2N} \sum_{n=1}^{N}\left[y_n-f(\bf{x}_i) \right]^2$
+convex, sensible to outliers
 
 MSE matrix formulation: $\frac{1}{2N} (\bf{y - X \bbeta})^T (\bf{y - X \bbeta})$
 
 Mean absolute error (MAE): $\frac{1}{2N} \sum_{n=1}^{N}\left | y_n-f(\bf{x}_i) \right |$
+convex (not strict), not diff-able, reasonably robust
 
 Huber loss: $\mathcal{L}_\delta (a) = \begin{cases}
 \frac{1}{2}{a^2}                   & \text{for } |a| \le \delta, \\
 \delta (|a| - \frac{1}{2}\delta ), & \text{otherwise.}
 \end{cases}$
+same as MAE but diff-able
 
 Root mean square error (RMSE): $\sqrt{2 * \text{MSE}}$
 
@@ -222,6 +226,8 @@ $\mathcal{L}_{\epsilon}(y, \hat{y}) = \begin{cases}
 % ----------
 \section{Least squares \small$\mathcal{O}(ND^2 + D^3)$}
 %Complexity: $\mathcal{O}(ND^2 + D^3)$
+Consistent, asymptotically normal.
+
 The gradient of the MSE set to zero is called the normal equation:
 $ - \bf{y}^T \bf{X} + \bf{X}^T \bf{X} \bbeta = 0$.
 
@@ -254,11 +260,11 @@ In a generalized linear model (GLM), each outcome of the dependent variables $y$
 
 
 \subsection{Cost functions}
-RMSE: $\sqrt{\frac{1}{N} \sum_{n=1}^{N}\left[y_n- \hat{p_n} \right]^2}$
-
-0-1 Loss: $ \frac{1}{N} \sum_{n=1}^{N} \delta(y_n, \hat{y_n})$
-
-Log-Loss: $- \frac{1}{N}  \sum_{n=1}^{N} y_n \log(\hat{p_n}) + (1-y_n) \log(1-\hat{p_n})$
+\begin{description}
+\item[RMSE] $\sqrt{\frac{1}{N} \sum_{n=1}^{N}\left[y_n- \hat{p_n} \right]^2}$
+\item[0-1 Loss] $ \frac{1}{N} \sum_{n=1}^{N} \delta(y_n, \hat{y_n})$
+\item[Log-Loss] $- \frac{1}{N}  \sum_{n=1}^{N} y_n \log(\hat{p_n}) + (1-y_n) \log(1-\hat{p_n})$
+\end{description}
 
 % ----------
 \section{Probabilistic framework}
@@ -391,16 +397,22 @@ Output for ...
 \item[classification] $\hat{y}_n = \sigma(z_{n1}^{(K)})$
 \end{description}
 
+\subsection{Optimization}
+\begin{itemize}
+\item multiple start
+\item stochastic gradient
+\end{itemize}
+
 
 \subsection{Backpropagation}
 It's an algorithm which computes the gradient of the cost $\mathcal{L}$ w.r.t. the parameters $\bbeta^{(k)}$.
 
 Forward pass: compute $a_i$, $z_i$ and $\bf{y}_n$ from $\bf{x}_n$.
 
-Backward pass: work out derivatives from outputs to the target $\bbeta_i^{(k)}$. Using the chain rule:\\
-$\bdelta^{(k-1)} = \frac{\partial \mathcal{L}}{\partial \bf{a}^{(k-1)}} = diag[ h'(\bf{a}^{(k-1)}) ] \bf{B^{(k)T}} \bdelta^{(k)}$\\
-$\frac{\partial \mathcal{L}}{\partial \bf{B}^{(1)}} = \bdelta^{(1)} \bf{x}^T$\\
-$\frac{\partial \mathcal{L}}{\partial \bf{B}^{(k)}} = \bdelta^{(k)} \bf{z}^{(k)T}$
+Backward pass: work out derivatives from outputs to the target $\bbeta_i^{(k)}$. %Using the chain rule:\\
+%$\bdelta^{(k-1)} = \frac{\partial \mathcal{L}}{\partial \bf{a}^{(k-1)}} = diag[ h'(\bf{a}^{(k-1)}) ] \bf{B^{(k)T}} \bdelta^{(k)}$\\
+%$\frac{\partial \mathcal{L}}{\partial \bf{B}^{(1)}} = \bdelta^{(1)} \bf{x}^T$\\
+%$\frac{\partial \mathcal{L}}{\partial \bf{B}^{(k)}} = \bdelta^{(k)} \bf{z}^{(k)T}$
 
 \subsubsection{Chain Rule}
 $\frac{\partial\mathcal{L}}{\partial\bbeta_m^{(1)}} = \frac{\partial a_m^{(1)}}{\partial\bbeta_m} \frac{\partial\mathcal{L}}{\partial a_m^{(1)}} = \bf{x} \frac{\partial\mathcal{L}}{\partial a_m^{(1)}}$
@@ -542,7 +554,7 @@ An estimator is called efficient if it achives the Cramer-Rao lower bound:
 $\Var{(\bbeta)} \geq 1/I(\bbeta)$, where I is the Fisher information.
 
 \subsection{Reducing Overfitting}
-\begin{itemize}[itemsep=0pt]
+\begin{itemize}
 \item penalize terms
 \item reduce dimensionality
 \item more data
