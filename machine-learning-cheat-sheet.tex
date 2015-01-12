@@ -14,6 +14,7 @@
 \input{style.tex}
 
 \newcommand{\school}{IC}
+\newcommand{\courseId}{CS-433}
 \newcommand{\courseTitle}{\href{https://isa.epfl.ch/imoniteur_ISAP/!GEDREPORTS.pdf?ww_i_reportModel=1696552884&ww_c_reportModelXsl=PDF&ww_x_ITEMPLAN=1686298920&ww_c_langue=en}{Pattern classification and machine learning}}
 \newcommand{\staff}{\href{people.epfl.ch/emtiyaz.khan}{M. E. Khan}}
 \newcommand{\academicYear}{2014-2015}
@@ -38,6 +39,7 @@
 \newcommand{\psd}{p.s.d.}
 \newcommand{\st}{s.t.}
 \providecommand{\gauss}[3]{\ensuremath{\mathcal{N}(#1|#2,#3)}}
+\newcommand{\stabilo}[1]{{\large\color{cyan}{#1}}}
 
 \pdfinfo{
   /Title (Machine Learning Cheat Sheet)
@@ -238,7 +240,7 @@ $\mathcal{L}_{\epsilon}(y, \hat{y}) = \begin{cases}
 %Complexity: $\mathcal{O}(ND^2 + D^3)$
 Consistent, asymptotically normal.
 
-The gradient of the MSE set to zero is called the normal equation:
+The gradient of the MSE set to zero is called the  \stabilo{normal equation}~:
 $ - \bf{y}^T \bf{X} + \bf{X}^T \bf{X} \bbeta = 0$.
 
 We can solve this for $\bbeta$ directly (by matrix manipulation)
