@@ -20,7 +20,7 @@
 \newcommand{\academicYear}{2014-2015}
 \newcommand{\academicSemester}{Autumn}
 \newcommand{\lastUpdate}{\today}
-\newcommand{\version}{1.1}
+\newcommand{\version}{1.1.1}
 
 % Shorthands
 \renewcommand{\bf}[1]{\ensuremath{\mathbf{#1}}}
@@ -345,7 +345,7 @@ Belief propagation is a message-passing based algorithm used to compute desired 
 $m_{z_i \rightarrow a}(z_i) = p(z_i) \prod_{b\in \mathbb{N}(i) 	\setminus a} m_{b\rightarrow i}(z_i)$
 \item[\stabilo{observations to variables}]
 %$m_{y_j \rightarrow z_i} = \sum_{z_k \neq z_i} p(y_j | z_k) \Pi(\text{messages received except from } z_i)$
-$m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j\neq i} p(y_a | \mathbb{P}_a) \prod_{j\in \mathbb{N}(a) \setminus i}m_{j\rightarrow a}(z_j)$
+$m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j\neq i} p(y_a | \mathbb{P}(a)) \prod_{j\in \mathbb{N}(a) \setminus i}m_{j\rightarrow a}(z_j)$
 \end{description}
 
 % ----------
