@@ -419,20 +419,8 @@ Decrease variance by averaging.
 
 % ----------
 \section{Neural Networks}
-$\bf{x}_n \xrightarrow{\bbeta_i^{(1)}} a_i^{(1)} \xrightarrow{h} z_i^{(1)} \xrightarrow{\bbeta^{(2)}} \dots \bf{z}^{(K)} = \bf{y}_n$
+$\bf{x}_n \xrightarrow{\bbeta_i^{(1)}} a_i^{(1)} \xrightarrow{h} z_i^{(1)} \xrightarrow{\bbeta^{(2)}} \dots \bf{z}^{(K)} \xrightarrow{g} \bf{\hat y}_n$
 A feed forward Neural Network is organized in $K$ layers, each layer with $M^{(k)}$ hidden units $z_i^{(k)}$. %Activations $a_i^{(k)}$ are computed as the linear combination of the previous layer's terms, with weights $\bbeta^{(k)}$ (one $M^{(k-1)} \times 1$ vector of weights for each of the $M^{(k)}$ activations). Activations are then passed through a (possibly nonlinear) function $h$ to compute the hidden unit $z_i^{(k)}$.
-
-$\forall M$ hidden units~:
-\begin{description}
-\item[First layer~:] $a_{nm}^{(1)} = (\bbeta_m^{(1)})^T\tilde{\bf{x}}_n, \quad z_{nm}^{(1)} = h(a_{nm}^{(1)})$
-\item[Layer $k$~:] $a_{nm}^{(k)} = (\bbeta_m^{(k)})^T\tilde{\bf{z}}_n, \quad z_{nm}^{(k)} = h(a_{nm}^{(k)})$
-\item[Layer $K$~:] $a_{n1}^{(K)} = (\bbeta_1^{(K)})^T\tilde{\bf{z}}_n, \quad z_{n1}^{(K)} = h(a_{n1}^{(K)})$
-\end{description}
-Output for ...
-\begin{description}
-\item[regression] $\hat{y}_n = z_{n1}^{(K)}$
-\item[classification] $\hat{y}_n = \sigma(z_{n1}^{(K)})$
-\end{description}
 
 \subsection{Optimization}
 \begin{itemize}
@@ -600,6 +588,13 @@ It states that among competing hypotheses, the one with the fewest assumptions s
 %\todo[inline]{TODO: K-fold cross-validation, definition of Test-Error, Train-Error}
 
 %\todo[inline]{TODO: statistical goodness (robust to outliers, ...) vs. computational goodness (convex, low computational complexity, ...) tradeoff. No free lunch theorem.}
+
+\section{Random Forests}
+Randomize training data: Bagging
+
+Randomize feature space: Randomized feature selection
+
+Parameters: maximum tree depth, number of trees, value of $m_{try}$, sample size $n'$.
 
 \todo[inline]{TODO: Decision Trees and Random Forests and Model averaging}
 
