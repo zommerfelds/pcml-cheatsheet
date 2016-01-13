@@ -20,7 +20,7 @@
 \newcommand{\academicYear}{2014-2015}
 \newcommand{\academicSemester}{Autumn}
 \newcommand{\lastUpdate}{\today}
-\newcommand{\version}{1.1.1}
+\newcommand{\version}{1.2c}
 
 % Shorthands
 \renewcommand{\bf}[1]{\ensuremath{\mathbf{#1}}}
@@ -78,6 +78,7 @@
 
 % ----------
 \section{General}
+
 \subsection{Dataset and Definitions}
 $\mathcal{D}$ is a set of training examples, the n-th Training Example ($n = 1,2, ..., N$), of this set is: $\bf{x}_n = \begin{bmatrix} x_{n1} \quad x_{n2} \quad ... \quad x_{nD} \end{bmatrix}^T$
 
@@ -108,7 +109,11 @@ $\frac{\partial\bf{b}^T\bf{X}^T\bf{Xc}}{\partial\bf{X}} = \bf{X}(\bf{bc}^T+\bf{c
 
 $\frac{\partial\bf{x}^T\bf{Bx}}{\partial\bf{x}} = (\bf{B}+\bf{B}^T)\bf{x}$
 
+$\frac \partial {\partial\bf A} \log |\bf A| = \bf A^{-\top}$
+
 \subsection{Distributions}
+$\binom n k =\frac{n!}{k!(n-k)!}$
+
 Multivariate gaussian distribution: $\mathcal{N}(\bf{X} | \bf{\mu} , \bf{\Sigma})$ \\
 $\implies p(\bf{X} = \bf{x}) = (2 \pi)^{-d/2} |\bf{\Sigma|}^{-1/2} \exp{[- \frac{1}{2} (\bf{x} - \bf{\mu})^T \bf{\Sigma}^{-1} (\bf{x} - \bf{\mu})]}$
 
@@ -117,6 +122,10 @@ $\implies p(X = x) = \frac{1}{\sqrt{2 \pi \sigma^2}} \exp{(- \frac{1}{2} ( \frac
 
 Poisson distribution: $\mathcal{P}(X| \lambda)$ \\
 $\implies p(X = k) = \frac{\lambda ^ k}{k!} \exp{(- \lambda)}$
+
+Binomial distribution: $f(k|n,p) = \binom{n}{k} p^k (1-p)^{n-k}$
+
+Multinomial distribution: $f(x_1, \ldots, x_k |n,\pmb\pi) = \frac{n!}{x_1!\cdots x_k!} \pi_1^{x_1} \cdots \pi_k^{x_k}$
 
 \subsection{Properties}
 %\textbf{Bayes rule}: $p(A, B) = p(A|B) p(B) = p(B|A) p(A)$ %duplicate
@@ -130,8 +139,8 @@ A matrix $\bf{M}$ is
 \end{description}
 $(\bf{MN})^T = \bf{N}^T\bf{M}^T$
 
-\textbf{Jensen's inequality} applied to $\log$: $\log( \mathbb{E}[X] ) \geq \mathbb{E}[\log(X)]$ \\
-$\implies \log ( \sum_x x \cdot p(x) ) \geq \sum_x p(x) \log(x)$
+\textbf{Jensen's inequality} applied to log: If $\bf p$ prob. distr. and $t_k > 0$: $\log\sum_{k=1}^K p_k t_k \geq \sum_{k=1}^K p_k \log t_k$
+
 
 \textbf{Matrix inversion lemma}: $(\bf{PQ} + \bf{I}_N)^{-1} \bf{P} = \bf{P}(\bf{QP} + \bf{I}_M)^{-1}$
 
@@ -256,8 +265,10 @@ $\bbeta = ( \bf{\tilde{X}}^T \bf{\tilde{X}} )^{-1} \bf{\tilde{X}}^T \bf{y}$
 
 % ----------
 \section{Classification}
-Logistic Function: $\sigma(t) = \frac{exp(t)}{1+exp(t)}$\\
+Logistic Function: $\sigma(t) = \frac{exp(t)}{1+\exp(t)} = \frac{\exp(x)}{\exp(x) + 1}}$\\
 Derivative: $\frac{ \partial\sigma(t) }{ \partial t } = \sigma(t)[ 1 - \sigma(t) ]$
+
+Softmax function: $\sigma(\mathbf{z})_j = \frac{\exp(z_j)}{\sum_{k=1}^K \exp(z_k)}$.
 
 Classification with linear regression: Use $y = 0$ as class $\mathcal{C}_1$
 and $y = 1$ as class $\mathcal{C}_2$ and then decide a newly estimated $y$ belongs
@@ -369,8 +380,11 @@ The $\phi$ are not that important in the end, because we only use the Kernel as 
 Properties of a Kernel:
 \begin{itemize}
 \item $\bf{K}$ symmetric%: $\bf{K}^T = \bf{K}$
-\item $\bf{K}$ \psd%: $\forall$ nonzero vector $\bf{a}, \bf{a}^T \bf{K} \bf{a} \geq 0$.
+\item $\bf{K}$ \psd ($z^\top K z = \sum_i \sum_j K_{ij} z_i z_j$)%: $\forall$ nonzero vector $\bf{a}, \bf{a}^T \bf{K} \bf{a} \geq 0$.
 \end{itemize}
+
+
+
 
 \subsection{Gaussian Process \small$\mathcal{O}(N^3)$}
 The predicting function $f$ is interpreted as a random variable with jointly gaussian prior: $\mathcal{N}(f | \bf{0}, \bf{K})$.
