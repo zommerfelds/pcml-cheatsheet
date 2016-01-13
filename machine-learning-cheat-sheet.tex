@@ -90,11 +90,6 @@ We assume a \emph{true} model behind the data, the observations are noisy versio
 
 The final goal is to predict a $\hat{y} = f(\bf{\hat{x}})$ given any $\bf{\hat{x}}$.
 
-\begin{description}
-\item[$\mathbb{N}$] the set of all neighbours
-\item[$\mathbb{P}$] the set of all parents
-\end{description}
-
 \subsection{Vector and matrix derivatives}
 \subsubsection{First Order}
 $\frac{\partial\bf{x}^T\bf{a}}{\partial\bf{x}} = \frac{\partial\bf{a}^T\bf{x}}{\partial\bf{x}} = \bf{a}$
@@ -328,6 +323,8 @@ Least-squares tries to find model parameters $\bbeta$ which maximize the likelih
 Bayesian method are biased.
 
 \subsection{Bayesian networks}
+Variables $\rightarrow$ observations
+
 We can use a Directed Acyclic Graph (DAG) to define a \stabilo{joint distribution} of events~: %For example, we can express the relationship between \textit{latent factors} (possible ``causes'') $z_i$ and \textit{observations} (results) $y_i$:
 $p(\bf{x}) = \prod_{k=1}^K p(x_k|\mathbb{P}_k)$
 %\begin{colfig}
@@ -350,13 +347,20 @@ $\implies p(z_1 | y_1, y_2) = \sum_{z_2, z_3} \frac{\text{joint}}{p(y_1, y_2)}$
 
 \subsection{Belief propagation}
 Belief propagation is a message-passing based algorithm used to compute desired marginals (e.g. $p(z_1 | y_1, y_2)$) efficiently. It leverages the factorized expression of the joint. Messages passed:
+
+
 \begin{description}
+  \item $\mathbb{N}(i)$: set of all neighbours of i
+  \item $\mathbb{P}(a)$: set of all parents of a
+
 \item[\stabilo{variables to observations}]
 %$m_{z_i \rightarrow y_j} = p(z_i) \Pi(\text{messages received except from } y_j)$
-$m_{z_i \rightarrow a}(z_i) = p(z_i) \prod_{b\in \mathbb{N}(i) 	\setminus a} m_{b\rightarrow i}(z_i)$
+$m_{i \rightarrow a}(z_i) = p(z_i) \prod_{b\in \mathbb{N}(i) 	\setminus a} m_{b\rightarrow i}(z_i)$
 \item[\stabilo{observations to variables}]
 %$m_{y_j \rightarrow z_i} = \sum_{z_k \neq z_i} p(y_j | z_k) \Pi(\text{messages received except from } z_i)$
-$m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j\neq i} p(y_a | \mathbb{P}(a)) \prod_{j\in \mathbb{N}(a) \setminus i}m_{j\rightarrow a}(z_j)$
+$m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j\neq i} p(y_a | \mathbb{P}(a)) \prod_{k\in \mathbb{N}(a) \setminus i}m_{k\rightarrow a}(z_k)$
+\item Compute marginals by multiplying all the messages received at node i:
+$p(z_i|\bf y) = p(z_i) \prod_{a \in \mathbb{N}(i)}m_{a \rightarrow it}(z_i)$
 \end{description}
 
 % ----------
@@ -597,7 +601,7 @@ It states that among competing hypotheses, the one with the fewest assumptions s
 
 %\todo[inline]{TODO: statistical goodness (robust to outliers, ...) vs. computational goodness (convex, low computational complexity, ...) tradeoff. No free lunch theorem.}
 
-%\todo[inline]{TODO: Decision Trees and Random Forests and Model averaging}
+\todo[inline]{TODO: Decision Trees and Random Forests and Model averaging}
 
 % ---------- Credits
 \section{Credits}
