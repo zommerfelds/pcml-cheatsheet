@@ -127,10 +127,10 @@ Multinomial distribution: $f(x_1, \ldots, x_k |n,\pmb\pi) = \frac{n!}{x_1!\cdots
 
 A matrix $\bf{M}$ is
 \begin{description}
-\item[\stabilo{\textbf{positive (semi-)definite}}] $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} >(=) \; 0$
+\item[\textbf{positive (semi-)definite}] $\iff \forall$ nonzero vector $\bf{a}$, we have $\bf{a}^T \bf{M} \bf{a} >(=) \; 0$
 \item[\textbf{symmetric}] $\bf{M}^T = \bf{M}$
 \item[singular] if not invertible
-\item[\stabilo{invertible}] $\iff$ full rank $\iff$ \pd\ $\iff$ diag \& diag$\neq0$ $\iff$ $\bf{M}^T$ invertible
+\item[invertible] $\iff$ full rank $\iff$ \pd\ $\iff$ diag \& diag$\neq0$ $\iff$ $\bf{M}^T$ invertible
 \end{description}
 $(\bf{MN})^T = \bf{N}^T\bf{M}^T$
 
@@ -252,7 +252,7 @@ $\mathcal{L}_{\epsilon}(y, \hat{y}) = \begin{cases}
 %Complexity: $\mathcal{O}(ND^2 + D^3)$
 Consistent, asymptotically normal.
 
-The gradient of the MSE set to zero is called the  \stabilo{normal equation}~:
+The gradient of the MSE set to zero is called the  normal equation~:
 $ - \bXt\bf{y} + \bf{X}^T \bf{X} \bbeta = 0$.
 
 We can solve this for $\bbeta$ directly (by matrix manipulation)
@@ -325,7 +325,7 @@ Bayesian method are biased.
 \subsection{Bayesian networks}
 Variables $\rightarrow$ observations
 
-We can use a Directed Acyclic Graph (DAG) to define a \stabilo{joint distribution} of events~: %For example, we can express the relationship between \textit{latent factors} (possible ``causes'') $z_i$ and \textit{observations} (results) $y_i$:
+We can use a Directed Acyclic Graph (DAG) to define a joint distribution of events~: %For example, we can express the relationship between \textit{latent factors} (possible ``causes'') $z_i$ and \textit{observations} (results) $y_i$:
 $p(\bf{x}) = \prod_{k=1}^K p(x_k|\mathbb{P}_k)$
 %\begin{colfig}
 %  \centering
@@ -353,10 +353,10 @@ Belief propagation is a message-passing based algorithm used to compute desired 
   \item $\mathbb{N}(i)$: set of all neighbours of i
   \item $\mathbb{P}(a)$: set of all parents of a
 
-\item[\stabilo{variables to observations}]
+\item[variables to observations]
 %$m_{z_i \rightarrow y_j} = p(z_i) \Pi(\text{messages received except from } y_j)$
 $m_{i \rightarrow a}(z_i) = p(z_i) \prod_{b\in \mathbb{N}(i) 	\setminus a} m_{b\rightarrow i}(z_i)$
-\item[\stabilo{observations to variables}]
+\item[observations to variables]
 %$m_{y_j \rightarrow z_i} = \sum_{z_k \neq z_i} p(y_j | z_k) \Pi(\text{messages received except from } z_i)$
 $m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j\neq i} p(y_a | \mathbb{P}(a)) \prod_{k\in \mathbb{N}(a) \setminus i}m_{k\rightarrow a}(z_k)$
 \item Compute marginals by multiplying all the messages received at node i:
@@ -595,8 +595,6 @@ Randomize training data: Bagging
 Randomize feature space: Randomized feature selection
 
 Parameters: maximum tree depth, number of trees, value of $m_{try}$, sample size $n'$.
-
-\todo[inline]{TODO: Decision Trees and Random Forests and Model averaging}
 
 % ---------- Credits
 \section{Credits}
