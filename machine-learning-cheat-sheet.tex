@@ -350,7 +350,7 @@ $m_{a \rightarrow i}(z_i) = \sum_{z_j,\forall j\neq i} p(y_a | \mathbb{P}(a)) \p
 
 % ----------
 \section{Kernel methods}
-Kernels are another way to encode our prior believe about the relation of outputs to inputs. A kernel defines a distance measure, or ``similarity'' of two vectors. We define:
+Kernels are another way to encode our prior belief about the relation of outputs to inputs. A kernel defines a distance measure, or ``similarity'' of two vectors. We define:
 
 $(\bf{K})_{i,j} = \kappa(\bf{x_i}, \bf{x_j}) = \vec \phi(\bf{x_i})^T \vec \phi(\bf{x_j})$.
 
@@ -428,16 +428,10 @@ It's an algorithm which computes the gradient of the cost $\mathcal{L}$ w.r.t. t
 
 Forward pass: compute $a_i$, $z_i$ and $\bf{y}_n$ from $\bf{x}_n$.
 
-Backward pass: work out derivatives from outputs to the target $\bbeta_i^{(k)}$. %Using the chain rule:\\
-%$\bdelta^{(k-1)} = \frac{\partial \mathcal{L}}{\partial \bf{a}^{(k-1)}} = diag[ h'(\bf{a}^{(k-1)}) ] \bf{B^{(k)T}} \bdelta^{(k)}$\\
-%$\frac{\partial \mathcal{L}}{\partial \bf{B}^{(1)}} = \bdelta^{(1)} \bf{x}^T$\\
-%$\frac{\partial \mathcal{L}}{\partial \bf{B}^{(k)}} = \bdelta^{(k)} \bf{z}^{(k)T}$
-
-\subsubsection{Chain Rule}
-$\frac{\partial\mathcal{L}}{\partial\bbeta_m^{(1)}} = \frac{\partial a_m^{(1)}}{\partial\bbeta_m} \frac{\partial\mathcal{L}}{\partial a_m^{(1)}} = \bf{x} \frac{\partial\mathcal{L}}{\partial a_m^{(1)}}$
-$a_m^{(1)} = \bbeta_m^{{(1)}^T} \bf{x} \qquad z_m^{(1)} = h(a_m^{(1)})$
-$\frac{\partial\mathcal{L}}{\partial a_m^{(1)}} = \frac{\partial z_m^{(1)}}{\partial a_m^{(1)}} \frac{\partial\mathcal{L}}{\partial z_m^{(1)}} = h'(a_m^{(1)}) \frac{\partial\mathcal{L}}{\partial z_m^{(1)}}$
-$\frac{\partial\mathcal{L}}{\partial z_m^{(1)}} = \frac{\partial a^{(2)}}{\partial z_m^{(1)}} \frac{\partial\mathcal{L}}{\partial a^{(2)}} \qquad a^{(2)} = \beta_1^{{(2)}^T}\bf{z}^{(1)}$
+Backward pass: work out derivatives from outputs to the target $\bbeta_i^{(k)}$. Using the chain rule:\\
+$\bdelta^{(k-1)} = \frac{\partial \mathcal{L}}{\partial \bf{a}^{(k-1)}} = diag[ h'(\bf{a}^{(k-1)}) ] \bf{B^{(k)T}} \bdelta^{(k)}$\\
+$\frac{\partial \mathcal{L}}{\partial \bf{B}^{(1)}} = \bdelta^{(1)} \bf{x}^T$\\
+$\frac{\partial \mathcal{L}}{\partial \bf{B}^{(k)}} = \bdelta^{(k)} \bf{z}^{(k)T}$
 
 \subsection{Regularization}
 NN are not \textit{identifiable} (existence of many local optima), therefore the maximum likelihood estimator is not \textit{consistent}.
@@ -477,6 +471,7 @@ Find the eigenvectors of the covariance matrix $\bf{X^T X}$ of the data. These f
 One can then use the first $L < D$ vectors to rebuild the data: $\bf{\hat{x}}_i = \bf{W} \bf{z}_i = \bf{W} \bf{W}^T \bf{x}_i$, with $\bf{W} = \begin{bmatrix} \bf{w}_1 ; ... ; \bf{w}_L \end{bmatrix}$.
 This minimizes mean square error $\frac{1}{N} \sum_{i=1}^N \bf{x}_i - \bf{\hat{x}}_i^2$.
 
+Alternating least squares:
 
 $\bf{Z}^T \leftarrow (\bf{W}^T\bf{W})^{-1}\bf{W}^T\bf{X}$
 
@@ -539,8 +534,8 @@ $P_{\theta_1}=P_{\theta_2} \quad\Rightarrow\quad \theta_1=\theta_2 \quad\ \text{
 A non-identifiable model will typically have many local optima yielding the same cost, e.g. $\mathcal{L}(W, Z) = \mathcal{L}(aW, \frac{1}{a} Z)$
 
 \subsection{Curse of dimensionality}
-With dimensionality increase, data point become arbitrarily far from each other. %With the dimensionality increase, every data point becomes arbitrarily far from every other data point and therefore the choice of nearest neighbor becomes random. In high dimension, data only covers a tiny fraction of the input space, making generalization extremely difficult. Or in other words, the volume of the space increases so fast that the available data become sparse.
-Bottom line: reduce feature dimensionality whenever possible.
+With dimensionality increase, data point become arbitrarily far from each other. %With the dimensionality increase, every data point becomes arbitrarily far from every other data point and therefore the choice of nearest neighbor becomes random. In high dimension, data only covers a tiny fraction of the input space, making generalization extremely difficult.
+Or in other words, the volume of the space increases so fast that the available data become sparse.
 
 \subsection{Primal vs. Dual}
 Instead of working in the \textbf{column space} of our data, we can work in the \textbf{row space}:
@@ -600,13 +595,13 @@ Most material was taken from the lecture notes of \href{http://people.epfl.ch/22
 % ---------- Footer
 \hrule
 \tiny
-Rendered \today. Written by Dennis Meier, Merlin Nimier-David and Marc Bourqui.
-\copyright Dennis Meier. This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License.
+Written by Dennis Meier, Merlin Nimier-David and Marc Bourqui. Modified by Christian Zommerfelds.
+This work is licensed under the Creative Commons Attribution-ShareAlike 3.0 Unported License.
 To view a copy of this license, visit \href{http://creativecommons.org/licenses/by-sa/3.0/}{http://creativecommons.org/licenses/by-sa/3.0/} or
 send a letter to Creative Commons, 444 Castro Street, Suite 900, Mountain View, California, 94041, USA.
 \includegraphics{images/by-sa.png}
 
-Source code available on~: \href{https://github.com/mbourqui/pcml-cheatsheet}{https://github.com/mbourqui/pcml-cheatsheet}
+Source code available on~: \href{https://github.com/mbourqui/pcml-cheatsheet}{https://github.com/zommerfelds/pcml-cheatsheet}
 
 \end{multicols*}
 \end{flushleft}
