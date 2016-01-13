@@ -90,6 +90,8 @@ We assume a \emph{true} model behind the data, the observations are noisy versio
 
 The final goal is to predict a $\hat{y} = f(\bf{\hat{x}})$ given any $\bf{\hat{x}}$.
 
+Eigendecomposition: $\bf A$ diagonizable NxN matrix with N linearly independent eigenvectors, $q_i$, can be factorized as $\mathbf{A}=\mathbf{Q}\mathbf{\Lambda}\mathbf{Q}^{-1}$ where Q is square (NxN) and has its $i$th column equal the eigenvector $q_i$ of $\bf A$ and $\bf\Lambda$ is the diagonal matrix with $\Lambda_{ii}=\lambda_i$.
+
 \subsection{Vector and matrix derivatives}
 \subsubsection{First Order}
 $\frac{\partial\bf{x}^T\bf{a}}{\partial\bf{x}} = \frac{\partial\bf{a}^T\bf{x}}{\partial\bf{x}} = \bf{a}$
